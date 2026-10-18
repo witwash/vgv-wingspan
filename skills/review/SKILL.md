@@ -52,7 +52,10 @@ Each run gets its own directory `<PWD>/docs/code-review/<slug>/`, so one run nev
 another branch's kept report.
 
 Dispatch the **default agents** below per [review agent dispatch](references/review-dispatch.md),
-with `<RAW_DIR>` = `<PWD>/docs/code-review/<slug>/raw`. Projects may add agents in their
+with `<RAW_DIR>` = `<PWD>/docs/code-review/<slug>/raw`. For `SCOPE=branch`, the scope is a
+branch against the script's `BASE_BRANCH`, and the subject is the branch's commit subjects
+(`git log --oneline <merge-base>..HEAD`). A review of paths or the whole project has no
+subject; say so. Projects may add agents in their
 `CLAUDE.md` (include them alongside the defaults) or replace the default set entirely. Offer
 to retry any agent that fails.
 
