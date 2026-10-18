@@ -146,7 +146,7 @@ Dispatch them per [review agent dispatch](references/review-dispatch.md), with `
 
 ### After all reviews complete
 
-Follow the [review consolidation procedure](references/review-consolidation.md): deduplicate the agents' structured findings, order them deterministically, assign stable `FINDING-NN` ids, and write **one** consolidated file to `<PWD>/docs/reviews/review.md` using the [report template](references/review-report-template.md). Print the aligned chat summary (same ids, order, and titles as the file). Then act, checking each finding against the code before changing anything (the procedure's *Acting on findings*): auto-fix minor issues, fix Critical findings by id, present Important findings to the user, and note any still-deferred findings in the PR description.
+Follow the [review consolidation procedure](references/review-consolidation.md): deduplicate the agents' structured findings, order them deterministically, assign stable `FINDING-NN` ids, and write **one** consolidated file to `<PWD>/docs/reviews/review.md` using the [report template](references/review-report-template.md). Print the aligned chat summary (same ids, order, and titles as the file). Then act, checking each finding against the code before changing anything (the procedure's *Acting on findings*): auto-fix a Suggestion only when the check confirms it and the fix stays within files the branch already changes, fix Critical findings by id, present Important findings to the user, and note any still-deferred findings — including the Suggestions not auto-fixed — in the PR description.
 
 ## Phase 4 — Ship
 
