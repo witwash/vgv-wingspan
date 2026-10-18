@@ -1,15 +1,17 @@
 # Commit Autonomy
 
 Decide once, in Phase 0, how this build commits; carry the choice through the whole run.
-Honor a saved preference if one exists. Otherwise use **AskUserQuestion**:
+Honor a saved preference if one exists (Claude memory or the user's personal settings).
+Otherwise use **AskUserQuestion**:
 
 - **Auto-commit each phase (Recommended)** — commit as each phase completes. Pushing and
   opening the PR still pause for approval.
 - **I'll commit myself** — build one phase, then stop so the user reviews and commits.
   Nothing is committed or pushed without them.
 
-The choice is a per-developer preference, not a repo convention, so it never belongs in the
-project's `CLAUDE.md`.
+Then offer to save the choice to Claude memory so future builds skip this question. Save it
+as the user's own preference: the choice is per-developer, not a repo convention, so it never
+belongs in the project's `CLAUDE.md`.
 
 ## Applying it
 
@@ -47,4 +49,5 @@ preference to push automatically, push and open the PR without asking. Otherwise
 1. **Review locally first (Recommended)** — stop here; the commits stay local and the user
    opens the PR when ready. Do not call `/create-pr`.
 2. **Push and open the PR now** — proceed this once.
-3. **Always push automatically** — proceed, and remember the preference for future builds.
+3. **Always push automatically** — proceed, and save the preference to Claude memory (the
+   user's own preference, never the project's `CLAUDE.md`) so future builds skip this prompt.
