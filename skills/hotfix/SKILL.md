@@ -49,9 +49,9 @@ Run:
 git rev-parse --abbrev-ref HEAD
 ```
 
-**If already on a `hotfix/` branch:** skip silently.
+**If already on a `hotfix/` branch:** skip silently. Its base is the default branch: `git symbolic-ref refs/remotes/origin/HEAD` stripped to the branch name, or `main` if that ref is unset.
 
-**Otherwise:** infer a branch name in the format `hotfix/<kebab-slug>` where the slug is derived from the bug description (max 60 characters total). Use **AskUserQuestion** to confirm:
+**Otherwise:** note the current branch as the hotfix's base — Phase 4 reviews against it. Then infer a branch name in the format `hotfix/<kebab-slug>` where the slug is derived from the bug description (max 60 characters total). Use **AskUserQuestion** to confirm:
 
 1. **Create branch (Recommended)** — `git checkout -b hotfix/<slug>`
 2. **Skip** — stay on the current branch
@@ -94,7 +94,7 @@ Follow the [validation and fix procedure](references/validate-and-fix.md).
 
 Validate the fix with a reduced agent set — speed matters, but quality is non-negotiable.
 
-Dispatch them per [review agent dispatch](references/review-dispatch.md), with `<RAW_DIR>` = `<PWD>/docs/hotfix-review/raw`. The subject is the bug and the root cause from Phase 1. The scope is the branch, against the branch the hotfix was cut from (usually the default branch: `git symbolic-ref refs/remotes/origin/HEAD`). The fix is still uncommitted at this point, so the scope must include uncommitted and untracked files. The 2 agents:
+Dispatch them per [review agent dispatch](references/review-dispatch.md), with `<RAW_DIR>` = `<PWD>/docs/hotfix-review/raw`. The subject is the bug and the root cause from Phase 1. The scope is the branch, against the base noted in Phase 2. The fix is still uncommitted at this point, so the scope must include uncommitted and untracked files. The 2 agents:
 
 | Agent | Report name |
 |-------|-------------|
