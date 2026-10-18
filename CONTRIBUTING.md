@@ -153,9 +153,10 @@ A skill's `effort` overrides the session's level while the skill is active, so a
 would override the effort of whatever task loaded it. Leave it unset.
 
 Pin `model` only with a reason. `inherit` follows the user's session model; pin `sonnet` or
-`haiku` where the cheaper model holds quality on that task. An alias moves to each new release
-of its tier (on Bedrock, Google Cloud, and Foundry it can resolve to an older model), so
-re-check pinned agents when a release ships.
+`haiku` where the cheaper model holds quality on that task. An alias points to the recommended
+model for the user's provider and changes over time: on the Anthropic API that is the newest
+release, while on Bedrock, Google Cloud, and Foundry it can be an earlier one. Re-check pinned
+agents when a release ships.
 
 ## Writing instructions for current models
 
