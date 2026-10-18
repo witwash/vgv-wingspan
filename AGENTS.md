@@ -51,18 +51,7 @@ skills/                # User-invocable and supporting skills (one dir per skill
   rebase/SKILL.md                # Sync a feature branch with its base
   elements-of-style/SKILL.md     # Apply Strunk's Elements of Style to prose
   shared/              # Shared references and scripts used across skills
-    references/
-      clear-context-handoff.md   # The "clear context and <next step>" handoff block
-      drive-to-green.md          # Loop until every gate is green by real output
-      feature-branch.md          # Branch check run before anything is written to disk
-      file-findings-on-pr.md     # Post review findings as PR comments
-      plan-review.md             # Quality pass applied to a drafted plan
-      plan-templates/            # minimal, standard, extensive, phases, success criteria
-      review-agent-instructions.md  # Instructions passed to each review agent
-      review-consolidation.md    # Deduplicate, order, and number findings
-      review-dispatch.md         # Caller-side procedure for launching review agents
-      review-report-template.md  # Shape of the consolidated report
-      validate-and-fix.md        # Run linter and tests, fix, retry up to 3 times
+    references/        # Plan templates, review procedures, handoff steps
     scripts/           # detect-base-branch.sh, detect-review-scope.sh
 ```
 
