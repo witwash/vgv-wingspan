@@ -134,23 +134,15 @@ all; removing them cut roughly 2,400 tokens from every request.
 Frontmatter decides how each skill and agent runs, so treat it as part of the prompt and
 re-check it at every model release.
 
-Set `effort` explicitly on every skill and agent. Defaults move between releases — in Claude
-Code, Opus 5.5, Sonnet 5.5, and Haiku 5.5 start at `medium` where most earlier models started
-at `high` — and one level name buys a different amount of thinking on each model. Without a
-pin, an agent follows the session's level. Pick the level by the work:
+Effort defaults move between releases — in Claude Code, Opus 5.5, Sonnet 5.5, and Haiku 5.5
+start at `medium` where most earlier models started at `high` — and one level name buys a
+different amount of thinking on each model. A skill's or agent's `effort` overrides the
+session's level in both directions: it can raise it, and it can lower a level the user chose.
+Without a pin, the work follows the session.
 
-| Effort | Work | Examples |
-| ------ | ---- | -------- |
-| `low` | Routing, mechanical git steps | `/create`, `/rebase` |
-| `medium` | Dialogue, exploration, research, document critique, tool-driven checks | `/brainstorm`, `/review` (its agents do the judging), research and analysis agents, `pr-readiness-review-agent` |
-| `high` | Planning, implementation, root-cause work, judgment-heavy review | `/plan`, `/build`, `/hotfix`, `/debrief`, the code-review agents |
-
-Reserve `xhigh` and `max` for a gain you have measured. To get less thinking, lower the effort:
-prose such as "think less" works less reliably than the setting.
-
-The one exception is a supporting skill applied inside other work, such as `elements-of-style`.
-A skill's `effort` overrides the session's level while the skill is active, so a pin there
-would override the effort of whatever task loaded it. Leave it unset.
+Add or change a pin only for a gain you have measured — run a `claude plugin eval` suite on
+both versions and compare. To get less thinking, lower the effort: prose such as "think less"
+works less reliably than the setting.
 
 Pin `model` only with a reason. `inherit` follows the user's session model; pin `sonnet` or
 `haiku` where the cheaper model holds quality on that task. An alias points to the recommended
