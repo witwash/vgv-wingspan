@@ -1,8 +1,7 @@
 ---
 name: brainstorm
 user-invocable: true
-description: Explores requirements and approaches through collaborative dialogue before planning implementation.
-when_to_use: Use when user says "brainstorm", "explore idea", "what should we build", "think through this", or "let's discuss approaches".
+description: Explores requirements and approaches through collaborative dialogue before planning implementation. Use when the user says "brainstorm", "explore idea", "what should we build", "think through this", or "let's discuss approaches".
 argument-hint: feature or idea to explore
 compatibility: Designed for Claude Code (or similar products with agent support)
 ---
@@ -11,13 +10,15 @@ compatibility: Designed for Claude Code (or similar products with agent support)
 
 Clarify **WHAT** to build before diving into **HOW** to build it. Explore user intent, approaches, and design decisions through collaborative dialogue.
 
+**Do not write code.** The output is a brainstorm document.
+
 ## Feature description
 
 <feature description>$ARGUMENTS</feature description>
 
 **If the feature description above is empty, ask the user**: "What feature would you like to brainstorm? Describe the idea, problem or feature you are thinking about."
 
-DO NOT proceed until you have a description from the user.
+Do not proceed until you have a description from the user.
 
 ## Execution flow
 
@@ -50,11 +51,7 @@ Assess whether brainstorming is needed.
 
 #### 1.1. Lightweight project research
 
-Run a quick project review to understand existing patterns:
-
-- Task @codebase-review-agent("Understand existing patterns related to: <feature_description>")
-
-Focus on: similar features, established patterns, CLAUDE.md guidance.
+Dispatch the **codebase-review-agent** subagent for a quick look at existing patterns. It starts without this conversation, so the brief carries the feature description and the ask: the similar features, established patterns, and CLAUDE.md guidance this feature should follow, as a short answer with `file:line` evidence — not a code-quality review.
 
 #### 1.2. Collaborative conversation
 
@@ -73,6 +70,9 @@ Use the **AskUserQuestion tool** to ask questions one at a time. The tool automa
 | Edge Cases | What shouldn't happen? Any error states to consider? |
 | Existing Patterns | Are there similar features in the codebase to follow? |
 
+Present the emerging design in sections and validate each one as you go, rather than saving it all
+for the document.
+
 **Exit condition:** Continue until the idea is clear OR user says "proceed" or "let's move on."
 
 #### 1.3. Explore approaches
@@ -81,7 +81,7 @@ Propose **2-3 concrete approaches** with trade-offs. Lead with your recommendati
 
 **Guidelines:**
 
-- **YAGNI ruthlessly.** If an approach adds complexity for a hypothetical future need, call it out and lean toward the simpler option. The question is always: "Do we need this now, or are we guessing?"
+- **YAGNI.** If an approach adds complexity for a hypothetical future need, call it out and lean toward the simpler option. The question is always: "Do we need this now, or are we guessing?"
 - **Prefer boring patterns.** If the codebase already solves a similar problem, default to that pattern. Consistency beats cleverness.
 - **Right-size the architecture.** Not every feature needs its own package. Not every screen needs a new state management controller. Match the solution to the actual complexity.
 
@@ -101,9 +101,7 @@ Use **AskUserQuestion tool** to ask which approach the user prefers.
 
 #### 1.4. Set up workspace
 
-Before writing any files, ensure the session is not on the base branch:
-
-- Run `git rev-parse --abbrev-ref HEAD`. If the current branch is a base branch (`main`, `master`, or `develop`), use **AskUserQuestion** to offer creating a feature branch — `git checkout -b <type>/<kebab-topic>`, name under 60 characters — before writing. If already on a feature branch, continue without prompting.
+Run the [feature branch check](references/feature-branch.md) before writing anything to disk.
 
 ### 2. Capture the design document
 
@@ -111,31 +109,19 @@ Write a brainstorm document to `docs/brainstorm/YYYY-MM-DD-<kebab-case-topic>-br
 
 Ensure `docs/brainstorm/` directory exists before writing.
 
-Use the [brainstorm template](references/template.md) as the document structure.
+Use the [brainstorm template](references/template.md) as the document structure. Keep the document to what planning needs — the decisions, why they were made, and what is still open — without filler sections or a replay of the conversation.
 
 ### 3. Handoff
 
-Use **AskUserQuestion tool** to consider next steps:
+Use the **AskUserQuestion tool**: "Brainstorm complete! What would you like to do next?"
 
-**Question**: "Brainstorm complete! What would you like to do next?"
-
-**Options:**
 1. **Clear context and plan (Recommended)**: clear context for a fresh start, then plan
 2. **Continue with planning**: run the `/plan` skill to create a detailed implementation plan
-3. **Review and refine approach:** improve the document using structured review
+3. **Review and refine approach**: improve the document using structured review
 4. **Done for now**: brainstorm complete. To start planning later: `/plan`
 
-**If the user selects "Clear context and plan"** → Follow the [clear context handoff](references/clear-context-handoff.md) for `/plan` with the actual brainstorm doc path. Then stop.
-
-**If the user selects "Review and refine approach"** then apply the @refine-approach skill to the document.
-
-When `refine-approach` is complete, present these options:
-
-1. **Clear context and plan (Recommended)**: clear context for a fresh start, then plan
-2. **Move to planning**: run the `/plan` skill to create a detailed implementation plan
-3. **Done for now**: ideation complete. To start planning later: `/plan`
-
-**If the user selects "Clear context and plan"** → Follow the [clear context handoff](references/clear-context-handoff.md) for `/plan` with the actual brainstorm doc path. Then stop.
+- **Clear context and plan** → follow the [clear context handoff](references/clear-context-handoff.md) for `/plan` with the actual brainstorm doc path, then stop.
+- **Review and refine approach** → apply the @refine-approach skill to the document, then present these same options again without the refine one.
 
 ## Output Summary
 
@@ -150,16 +136,3 @@ Key decisions:
 - [Decision 1]
 - [Decision 2]
 ```
-
-## Key Principles
-
-- **One question at a time** - Don't overwhelm with multiple questions
-- **Multiple choice preferred** - Easier to answer than open-ended when possible
-- **YAGNI ruthlessly** - Remove unnecessary features from all designs
-- **Explore alternatives** - Always propose 2-3 approaches before settling
-- **Incremental validation** - Present design in sections, validate each
-- **Be flexible** - Go back and clarify when something doesn't make sense
-
-## Important Guidelines
-
-**DO NOT CODE!** Just explore and document decisions.

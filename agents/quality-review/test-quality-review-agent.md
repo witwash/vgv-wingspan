@@ -1,35 +1,7 @@
 ---
 name: test-quality-review-agent
 skills: [elements-of-style]
-description: |
-  Reviews test coverage and quality for implementations. Use after code is written to verify every state management unit, repository, and UI component has proper tests following VGV conventions.
-
-  <examples>
-    <example>
-      Context: The user has finished implementing a feature and wants test coverage reviewed.
-      user: "I just finished implementing the notifications feature with tests. Can you review the test quality?"
-      assistant: "I'll use the test quality review agent to evaluate coverage and adherence to project testing patterns."
-      <commentary>
-        New feature implementations need test coverage verification: every state management unit, UI component, and repository must have a test file following VGV conventions.
-      </commentary>
-    </example>
-    <example>
-      Context: The user has written state management tests and wants to check for anti-patterns.
-      user: "I wrote tests for the cart service — are they solid?"
-      assistant: "Let me run the test quality review agent to check for anti-patterns and coverage gaps."
-      <commentary>
-        State management tests should follow VGV conventions, cover success/failure/edge cases, use proper mocking, and avoid tautological assertions.
-      </commentary>
-    </example>
-    <example>
-      Context: The user wants a pre-PR test quality check.
-      user: "Before I open a PR, can you verify the tests are up to standard?"
-      assistant: "I'll use the test quality review agent to audit test quality across the changed files."
-      <commentary>
-        Pre-PR test reviews should verify completeness, pattern compliance, meaningful assertions, and absence of anti-patterns.
-      </commentary>
-    </example>
-  </examples>
+description: Reviews test coverage and quality — whether every state management unit, repository, data model, and UI component has a test file, and whether those tests cover success, failure, and edge cases with meaningful assertions. Returns coverage gaps and anti-patterns, including tautological assertions and missing async settling. Use after code is written, before opening a PR.
 model: sonnet
 ---
 
@@ -57,7 +29,7 @@ Never assume a specific test command — discover it from the project.
 
 ### 1. Coverage Audit
 
-Run the project's test suite with coverage enabled (if supported). Then scan the implementation and verify every testable unit has a corresponding test file:
+Run the project's test suite with coverage enabled (if supported). Then verify that every testable unit in the scope your brief gives has a corresponding test file:
 
 - **State management units**: Each must have a test file using VGV testing conventions
 - **Repositories/Services**: Each must have unit tests for all public methods
@@ -92,7 +64,7 @@ For each test file, evaluate:
 
 ### 4. Anti-Pattern Detection
 
-Flag these immediately:
+Flag these:
 
 | Anti-Pattern | Example | Why It's Wrong |
 | --- | --- | --- |
