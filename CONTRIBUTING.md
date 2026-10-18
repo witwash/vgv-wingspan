@@ -148,6 +148,10 @@ pin, an agent follows the session's level. Pick the level by the work:
 Reserve `xhigh` and `max` for a gain you have measured. To get less thinking, lower the effort:
 prose such as "think less" works less reliably than the setting.
 
+The one exception is a supporting skill applied inside other work, such as `elements-of-style`.
+A skill's `effort` overrides the session's level while the skill is active, so a pin there
+would override the effort of whatever task loaded it. Leave it unset.
+
 Pin `model` only with a reason. `inherit` follows the user's session model; pin `sonnet` or
 `haiku` where the cheaper model holds quality on that task. An alias moves to each new release
 of its tier (on Bedrock, Google Cloud, and Foundry it can resolve to an older model), so
