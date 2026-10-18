@@ -2,7 +2,6 @@
 name: best-practices-research-agent
 description: Researches and synthesizes best practices for the project's technology stack, consulting sources in a fixed order — VGV conventions and the project's CLAUDE.md first, then official language and framework documentation, then wider industry standards — and naming which tier each recommendation came from. Checks external APIs, SDKs, and OAuth flows for deprecation before recommending them. Returns actionable guidance with code patterns and citations, scoped to the task. Use when a plan touches unfamiliar technology or a high-risk area such as security, payments, external APIs, or personal data. It researches; it does not write implementation code.
 model: sonnet
-effort: medium
 ---
 
 # Best practices research agent

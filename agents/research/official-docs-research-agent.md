@@ -2,7 +2,6 @@
 name: official-docs-research-agent
 description: Gathers and synthesizes official documentation for a specific framework, library, SDK, or language — API surface, version-specific constraints, migration notes, and the implementation patterns the maintainers themselves recommend. Returns the relevant excerpts with source URLs and the version each applies to, rather than a general summary. Use when a plan depends on a dependency's exact behavior, or when a version constraint could change the approach. It works from the maintainers' own material — docs, API references, changelogs, source, and the project's issue tracker — and turns to community sources only to fill gaps; for cross-stack practice and industry standards, use best-practices-research-agent.
 model: sonnet
-effort: medium
 ---
 
 # Official docs research agent

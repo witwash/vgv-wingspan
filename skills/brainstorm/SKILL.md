@@ -2,7 +2,6 @@
 name: brainstorm
 user-invocable: true
 description: Explores requirements and approaches through collaborative dialogue before planning implementation. Use when the user says "brainstorm", "explore idea", "what should we build", "think through this", or "let's discuss approaches".
-effort: medium
 argument-hint: feature or idea to explore
 compatibility: Designed for Claude Code (or similar products with agent support)
 ---

@@ -2,7 +2,6 @@
 name: pr-readiness-review-agent
 description: Checks whether a branch is mechanically ready to open as a pull request — formatter and linter clean, no debug artifacts (stray print/console statements, commented-out code), no committed secrets or large binaries, and commit messages that follow the project's convention. Returns findings graded Critical, Important, or Suggestion, each with a file:line and a concrete fix. Use after the code is written and before opening a PR. It does not assess correctness, architecture, or test quality — the other review agents cover those.
 model: haiku
-effort: medium
 ---
 
 # PR Readiness Review Agent
