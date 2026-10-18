@@ -57,7 +57,7 @@ Run these in parallel:
 
 ### 3. Analyze root cause
 
-Synthesize the evidence to identify the **root cause** (specific change, gap, or condition — trace to commits or code paths) and **contributing factors** (missing tests, no monitoring, unclear ownership, insufficient review).
+Synthesize the evidence to identify the **root cause** (specific change, gap, or condition — trace to commits or code paths) and **contributing factors** (missing tests, no monitoring, unclear ownership, insufficient review). Where the evidence doesn't settle a point, mark it unknown and name what would settle it, rather than filling the gap with a plausible guess.
 
 **Blameless framing:** Focus on systems and processes, not individuals. Ask "what made this possible?" not "who caused this?"
 
